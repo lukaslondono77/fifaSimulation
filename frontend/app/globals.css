@@ -806,30 +806,247 @@ a {
     min-height: 44px;
   }
 
-  /* Standings table - horizontal scroll on mobile */
+  /* Standings - use modal on mobile, table on desktop */
+  .standings-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .standings-card:active {
+    transform: scale(0.98);
+  }
+
+  /* On mobile: hide table, show preview */
   .standings-table {
-    font-size: 0.75rem;
-    display: block;
-    overflow-x: auto;
+    display: none;
+  }
+
+  .standings-preview {
+    display: flex;
+  }
+
+  /* On desktop: show table, hide preview */
+  @media (min-width: 769px) {
+    .standings-card {
+      cursor: default;
+    }
+
+    .standings-preview {
+      display: none;
+    }
+
+    .standings-table {
+      display: table;
+    }
+  }
+
+  .standings-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .standings-preview-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: #252525;
+    border-radius: 4px;
+  }
+
+  .preview-position {
+    font-weight: bold;
+    color: #667eea;
+    min-width: 30px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .preview-team {
+    flex: 1;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  .preview-points {
+    font-weight: bold;
+    color: #fff;
+    min-width: 35px;
+    text-align: right;
+    font-size: 0.9rem;
+  }
+
+  .standings-preview-more {
+    text-align: center;
+    color: #667eea;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  .standings-table thead,
-  .standings-table tbody,
-  .standings-table tr {
-    display: table;
+  .modal-content {
+    background: #1a1a1a;
+    border-radius: 12px;
     width: 100%;
-    table-layout: fixed;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 2px solid #333;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   }
 
-  .standings-table th,
-  .standings-table td {
-    padding: 0.4rem 0.3rem;
-    font-size: 0.75rem;
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 2px solid #333;
+    position: sticky;
+    top: 0;
+    background: #1a1a1a;
+    z-index: 10;
   }
 
-  .standings-table th {
-    font-size: 0.7rem;
+  .modal-header h2 {
+    color: #667eea;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .modal-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .modal-close:hover {
+    background: #333;
+  }
+
+  .modal-close:active {
+    background: #444;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .standings-modal-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .standings-modal-header {
+    display: grid;
+    grid-template-columns: 40px 1fr 35px 35px 35px 35px 35px 35px 40px 45px;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #252525;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #667eea;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .standings-modal-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 35px 35px 35px 35px 35px 35px 40px 45px;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #252525;
+    border-radius: 6px;
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .standings-modal-row:hover {
+    background: #2a2a2a;
+  }
+
+  .modal-col {
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  .modal-col.pos {
+    text-align: center;
+    font-weight: bold;
+    color: #667eea;
+  }
+
+  .modal-col.team {
+    font-weight: 500;
+    min-width: 0;
+  }
+
+  .modal-col.stat {
+    text-align: center;
+  }
+
+  .modal-col.points {
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  @media (max-width: 480px) {
+    .standings-modal-header,
+    .standings-modal-row {
+      grid-template-columns: 35px 1fr 30px 30px 30px 30px 30px 30px 35px 40px;
+      gap: 0.4rem;
+      padding: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .modal-col {
+      font-size: 0.8rem;
+    }
+
+    .modal-header {
+      padding: 1rem;
+    }
+
+    .modal-header h2 {
+      font-size: 1.25rem;
+    }
+
+    .modal-body {
+      padding: 1rem;
+    }
   }
 
   /* Bracket mobile styles */

@@ -7,6 +7,7 @@ import { GROUPS } from '../data'
 export default function StandingsView() {
   const [matches, setMatches] = useState<Match[]>([])
   const [standings, setStandings] = useState<Record<string, Standing[]>>({})
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -82,54 +83,130 @@ export default function StandingsView() {
     )
   }
 
+  const openModal = (group: string) => {
+    setSelectedGroup(group)
+  }
+
+  const closeModal = () => {
+    setSelectedGroup(null)
+  }
+
   return (
-    <div style={{ width: '100%', color: '#fff', padding: '1rem' }}>
-      <h2 style={{ color: '#667eea', marginBottom: '1.5rem', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>Group Standings</h2>
-      <div className="groups-grid">
-        {groups.map((group) => (
-          <div key={group} className="group-card">
-            <h3>Group {group}</h3>
-            {standings[group] && standings[group].length > 0 ? (
-              <table className="standings-table">
-                <thead>
-                  <tr>
-                    <th className="position">Pos</th>
-                    <th>Team</th>
-                    <th>P</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>GD</th>
-                    <th>Pts</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {standings[group].map((team, idx) => (
-                    <tr key={team.team}>
-                      <td className="position">{idx + 1}</td>
-                      <td>{team.team}</td>
-                      <td>{team.played}</td>
-                      <td>{team.won}</td>
-                      <td>{team.drawn}</td>
-                      <td>{team.lost}</td>
-                      <td>{team.goals_for}</td>
-                      <td>{team.goals_against}</td>
-                      <td>{team.goal_difference > 0 ? '+' : ''}{team.goal_difference}</td>
-                      <td><strong>{team.points}</strong></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p style={{ color: '#888', textAlign: 'center', padding: '1rem' }}>
-                No matches played yet
-              </p>
-            )}
-          </div>
-        ))}
+    <>
+      <div style={{ width: '100%', color: '#fff', padding: '1rem' }}>
+        <h2 style={{ color: '#667eea', marginBottom: '1.5rem', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>Group Standings</h2>
+        <div className="groups-grid">
+          {groups.map((group) => (
+            <div 
+              key={group} 
+              className="group-card standings-card"
+              onClick={() => openModal(group)}
+            >
+              <h3>Group {group}</h3>
+              {standings[group] && standings[group].length > 0 ? (
+                <>
+                  {/* Desktop: Full table */}
+                  <table className="standings-table">
+                    <thead>
+                      <tr>
+                        <th className="position">Pos</th>
+                        <th>Team</th>
+                        <th>P</th>
+                        <th>W</th>
+                        <th>D</th>
+                        <th>L</th>
+                        <th>GF</th>
+                        <th>GA</th>
+                        <th>GD</th>
+                        <th>Pts</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {standings[group].map((team, idx) => (
+                        <tr key={team.team}>
+                          <td className="position">{idx + 1}</td>
+                          <td>{team.team}</td>
+                          <td>{team.played}</td>
+                          <td>{team.won}</td>
+                          <td>{team.drawn}</td>
+                          <td>{team.lost}</td>
+                          <td>{team.goals_for}</td>
+                          <td>{team.goals_against}</td>
+                          <td>{team.goal_difference > 0 ? '+' : ''}{team.goal_difference}</td>
+                          <td><strong>{team.points}</strong></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {/* Mobile: Preview */}
+                  <div className="standings-preview">
+                    {standings[group].slice(0, 4).map((team, idx) => (
+                      <div key={team.team} className="standings-preview-row">
+                        <span className="preview-position">{idx + 1}</span>
+                        <span className="preview-team">{team.team}</span>
+                        <span className="preview-points"><strong>{team.points}</strong></span>
+                      </div>
+                    ))}
+                    <div className="standings-preview-more">Tap to view full standings →</div>
+                  </div>
+                </>
+              ) : (
+                <p style={{ color: '#888', textAlign: 'center', padding: '1rem' }}>
+                  No matches played yet
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Modal */}
+      {selectedGroup && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Group {selectedGroup}</h2>
+              <button className="modal-close" onClick={closeModal}>×</button>
+            </div>
+            <div className="modal-body">
+              {standings[selectedGroup] && standings[selectedGroup].length > 0 ? (
+                <div className="standings-modal-table">
+                  <div className="standings-modal-header">
+                    <div className="modal-col pos">Pos</div>
+                    <div className="modal-col team">Team</div>
+                    <div className="modal-col stat">P</div>
+                    <div className="modal-col stat">W</div>
+                    <div className="modal-col stat">D</div>
+                    <div className="modal-col stat">L</div>
+                    <div className="modal-col stat">GF</div>
+                    <div className="modal-col stat">GA</div>
+                    <div className="modal-col stat">GD</div>
+                    <div className="modal-col points">Pts</div>
+                  </div>
+                  {standings[selectedGroup].map((team, idx) => (
+                    <div key={team.team} className="standings-modal-row">
+                      <div className="modal-col pos">{idx + 1}</div>
+                      <div className="modal-col team">{team.team}</div>
+                      <div className="modal-col stat">{team.played}</div>
+                      <div className="modal-col stat">{team.won}</div>
+                      <div className="modal-col stat">{team.drawn}</div>
+                      <div className="modal-col stat">{team.lost}</div>
+                      <div className="modal-col stat">{team.goals_for}</div>
+                      <div className="modal-col stat">{team.goals_against}</div>
+                      <div className="modal-col stat">{team.goal_difference > 0 ? '+' : ''}{team.goal_difference}</div>
+                      <div className="modal-col points"><strong>{team.points}</strong></div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p style={{ color: '#888', textAlign: 'center', padding: '2rem' }}>
+                  No matches played yet
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
