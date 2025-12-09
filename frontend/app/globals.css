@@ -823,25 +823,6 @@ a {
 
   .standings-preview {
     display: flex;
-  }
-
-  /* On desktop: show table, hide preview */
-  @media (min-width: 769px) {
-    .standings-card {
-      cursor: default;
-    }
-
-    .standings-preview {
-      display: none;
-    }
-
-    .standings-table {
-      display: table;
-    }
-  }
-
-  .standings-preview {
-    display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
@@ -1221,6 +1202,21 @@ a {
 
   .match-box:hover {
     transform: none;
+  }
+}
+
+/* Desktop: Show table, hide preview */
+@media (min-width: 769px) {
+  .standings-card {
+    cursor: default;
+  }
+
+  .standings-preview {
+    display: none !important;
+  }
+
+  .standings-table {
+    display: table !important;
   }
 }
 
