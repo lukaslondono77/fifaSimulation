@@ -6,7 +6,7 @@ import { GROUPS } from '../data'
 
 export default function MatchesView() {
   const [matches, setMatches] = useState<Match[]>([])
-  const [selectedGroup, setSelectedGroup] = useState<string>('all')
+  const [selectedGroup, setSelectedGroup] = useState<string>(Object.keys(GROUPS)[0] || 'A')
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -103,7 +103,7 @@ export default function MatchesView() {
     saveMatches(updated)
   }
 
-  const groups = ['all', ...Object.keys(GROUPS)]
+  const groups = Object.keys(GROUPS)
   const matchesByGroup: Record<string, Match[]> = {}
 
   matches.forEach((match) => {
@@ -114,9 +114,7 @@ export default function MatchesView() {
     matchesByGroup[group].push(match)
   })
 
-  const filteredMatches = selectedGroup === 'all' 
-    ? matches.filter(m => m.stage === 'group')
-    : matches.filter(m => m.group === selectedGroup)
+  // Always show all groups - selectedGroup is for reference only
 
   if (matches.length === 0) {
     return (
@@ -149,7 +147,7 @@ export default function MatchesView() {
         >
           {groups.map((g) => (
             <option key={g} value={g}>
-              {g === 'all' ? 'All Groups' : `Group ${g}`}
+              Group {g}
             </option>
           ))}
         </select>
