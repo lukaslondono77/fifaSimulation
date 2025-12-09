@@ -6,7 +6,6 @@ import { GROUPS } from '../data'
 
 export default function MatchesView() {
   const [matches, setMatches] = useState<Match[]>([])
-  const [selectedGroup, setSelectedGroup] = useState<string>(Object.keys(GROUPS)[0] || 'A')
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -103,7 +102,6 @@ export default function MatchesView() {
     saveMatches(updated)
   }
 
-  const groups = Object.keys(GROUPS)
   const matchesByGroup: Record<string, Match[]> = {}
 
   matches.forEach((match) => {
@@ -113,8 +111,6 @@ export default function MatchesView() {
     }
     matchesByGroup[group].push(match)
   })
-
-  // Always show all groups - selectedGroup is for reference only
 
   if (matches.length === 0) {
     return (
@@ -133,24 +129,6 @@ export default function MatchesView() {
         <button className="button" onClick={simulateAllGroups}>
           Simulate All Groups
         </button>
-        <select
-          value={selectedGroup}
-          onChange={(e) => setSelectedGroup(e.target.value)}
-          style={{
-            padding: '0.75rem 1.5rem',
-            background: '#1a1a1a',
-            color: '#fff',
-            border: '1px solid #333',
-            borderRadius: '4px',
-            fontSize: '1rem',
-          }}
-        >
-          {groups.map((g) => (
-            <option key={g} value={g}>
-              Group {g}
-            </option>
-          ))}
-        </select>
       </div>
 
       {Object.entries(matchesByGroup).map(([group, groupMatches]) => (
