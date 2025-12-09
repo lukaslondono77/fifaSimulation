@@ -134,9 +134,19 @@ a {
   font-size: 0.9rem;
 }
 
-.matches-section {
-  margin-top: 2rem;
-}
+  .matches-section {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .matches-section {
+      margin-top: 1.5rem;
+    }
+
+    .matches-section h2 {
+      font-size: 1.2rem !important;
+    }
+  }
 
 .match-card {
   background: #1a1a1a;
@@ -682,17 +692,318 @@ a {
   gap: 1rem;
 }
 
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .header {
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .tabs {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .content-area {
+    padding: 0.5rem 0;
+    min-height: 300px;
+  }
+
   .groups-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
+
+  .group-card {
+    padding: 1rem;
+  }
+
+  .group-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .team-item {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .match-card {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .match-header {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
   .match-teams {
     flex-direction: column;
+    gap: 0.5rem;
   }
-  
+
+  .team {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
   .score {
+    font-size: 1.25rem;
     margin: 0.5rem 0;
+    min-width: auto;
+  }
+
+  .button {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+
+  .button-group select {
+    width: 100%;
+    padding: 0.625rem 1rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+
+  /* Standings table - horizontal scroll on mobile */
+  .standings-table {
+    font-size: 0.75rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .standings-table thead,
+  .standings-table tbody,
+  .standings-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .standings-table th,
+  .standings-table td {
+    padding: 0.4rem 0.3rem;
+    font-size: 0.75rem;
+  }
+
+  .standings-table th {
+    font-size: 0.7rem;
+  }
+
+  /* Bracket mobile styles */
+  .bracket-wrapper {
+    padding: 1rem 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bracket-header {
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+  }
+
+  .bracket-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  .bracket-rounds {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .round-label {
+    font-size: 0.9rem;
+  }
+
+  .bracket-main-organized {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+  }
+
+  .bracket-pathway-column {
+    min-width: 100%;
+  }
+
+  .pathway-header {
+    font-size: 1rem;
+    padding: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .round-title {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .bracket-center-column {
+    min-width: 100%;
+    position: static;
+    order: -1;
+  }
+
+  .trophy {
+    font-size: 4rem;
+  }
+
+  .match-box {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 0.625rem;
+    font-size: 0.85rem;
+  }
+
+  .match-box.gold,
+  .match-box.bronze {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .match-id {
+    font-size: 0.75rem;
+  }
+
+  .match-team {
+    font-size: 0.85rem;
+  }
+
+  .match-vs {
+    font-size: 0.7rem;
+  }
+
+  .match-venue {
+    font-size: 0.7rem;
+  }
+
+  .match-date {
+    font-size: 0.65rem;
+  }
+
+  .final-match {
+    min-width: 100%;
+    padding: 1rem;
+  }
+
+  .final-match-header {
+    font-size: 1rem;
+  }
+
+  .final-match-id {
+    font-size: 0.9rem;
+  }
+
+  .final-match-date {
+    font-size: 0.8rem;
+  }
+
+  .winner-announcement {
+    font-size: 1.1rem;
+    margin: 0.75rem 0;
+  }
+
+  .winner-name {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .header h1 {
+    font-size: 1.25rem;
+  }
+
+  .header p {
+    font-size: 0.85rem;
+  }
+
+  .tab {
+    padding: 0.625rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .group-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .bracket-title {
+    font-size: 1.25rem;
+  }
+
+  .trophy {
+    font-size: 3rem;
+  }
+
+  .standings-table th,
+  .standings-table td {
+    padding: 0.3rem 0.25rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .tab {
+    min-height: 44px;
+  }
+
+  .match-box:hover {
+    transform: none;
   }
 }
 

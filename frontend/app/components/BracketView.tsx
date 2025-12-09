@@ -197,9 +197,9 @@ export default function BracketView() {
 
   if (!bracket.ready) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', minHeight: '400px' }}>
-        <h2 style={{ color: '#667eea', marginBottom: '1rem' }}>Complete Group Stage First</h2>
-        <p style={{ color: '#888', marginBottom: '2rem' }}>
+      <div style={{ textAlign: 'center', padding: 'clamp(1.5rem, 5vw, 3rem)', minHeight: '300px' }}>
+        <h2 style={{ color: '#667eea', marginBottom: '1rem', fontSize: 'clamp(1.1rem, 4vw, 1.3rem)' }}>Complete Group Stage First</h2>
+        <p style={{ color: '#888', marginBottom: '2rem', fontSize: 'clamp(0.85rem, 3vw, 1rem)' }}>
           Simulate all group stage matches to generate the knockout bracket
         </p>
       </div>

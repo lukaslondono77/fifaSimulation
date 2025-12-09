@@ -129,8 +129,8 @@ export default function MatchesView() {
 
   return (
     <div style={{ width: '100%', color: '#fff', padding: '1rem' }}>
-      <h2 style={{ color: '#667eea', marginBottom: '1.5rem', fontSize: '1.5rem' }}>Group Stage Matches</h2>
-      <p style={{ color: '#888', marginBottom: '1rem' }}>Total matches: {matches.length}</p>
+      <h2 style={{ color: '#667eea', marginBottom: '1.5rem', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>Group Stage Matches</h2>
+      <p style={{ color: '#888', marginBottom: '1rem', fontSize: 'clamp(0.85rem, 3vw, 1rem)' }}>Total matches: {matches.length}</p>
       <div className="button-group">
         <button className="button" onClick={simulateAllGroups}>
           Simulate All Groups
@@ -157,7 +157,7 @@ export default function MatchesView() {
 
       {Object.entries(matchesByGroup).map(([group, groupMatches]) => (
         <div key={group} className="matches-section">
-          <h2 style={{ marginBottom: '1rem', color: '#667eea' }}>
+          <h2 style={{ marginBottom: '1rem', color: '#667eea', fontSize: 'clamp(1.1rem, 3.5vw, 1.3rem)' }}>
             Group {group}
           </h2>
           <button

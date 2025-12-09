@@ -53,17 +53,26 @@ npm start
 
 ## Deployment
 
-This application is ready to deploy to any static hosting service:
+**📖 For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)**
 
-### Vercel (Recommended)
-1. Push code to GitHub
-2. Import repository on [Vercel](https://vercel.com)
-3. Deploy automatically (zero configuration needed)
+### Quick Start (Vercel - Recommended)
+
+1. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+2. Click "Add New Project" and import `lukaslondono77/fifaSimulation`
+3. **Important**: Set "Root Directory" to `frontend`
+4. Click "Deploy"
+5. Your app will be live in ~2 minutes!
+
+**Why Vercel?**
+- Built by Next.js creators - perfect optimization
+- Zero configuration needed
+- Free tier: Unlimited personal projects
+- Automatic deployments on every git push
 
 ### Other Options
-- Netlify
-- Cloudflare Pages
-- GitHub Pages (with static export)
+- **Netlify**: Great alternative with similar setup
+- **Cloudflare Pages**: Unlimited bandwidth on free tier
+- See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed steps for all platforms
 
 ## Project Structure
 

@@ -84,7 +84,7 @@ export default function StandingsView() {
 
   return (
     <div style={{ width: '100%', color: '#fff', padding: '1rem' }}>
-      <h2 style={{ color: '#667eea', marginBottom: '1.5rem', fontSize: '1.5rem' }}>Group Standings</h2>
+      <h2 style={{ color: '#667eea', marginBottom: '1.5rem', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>Group Standings</h2>
       <div className="groups-grid">
         {groups.map((group) => (
           <div key={group} className="group-card">
