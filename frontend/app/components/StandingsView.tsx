@@ -8,6 +8,16 @@ export default function StandingsView() {
   const [matches, setMatches] = useState<Match[]>([])
   const [standings, setStandings] = useState<Record<string, Standing[]>>({})
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -106,49 +116,53 @@ export default function StandingsView() {
               {standings[group] && standings[group].length > 0 ? (
                 <>
                   {/* Desktop: Full table */}
-                  <table className="standings-table">
-                    <thead>
-                      <tr>
-                        <th className="position">Pos</th>
-                        <th>Team</th>
-                        <th>P</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>GF</th>
-                        <th>GA</th>
-                        <th>GD</th>
-                        <th>Pts</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {standings[group].map((team, idx) => (
-                        <tr key={team.team}>
-                          <td className="position">{idx + 1}</td>
-                          <td>{team.team}</td>
-                          <td>{team.played}</td>
-                          <td>{team.won}</td>
-                          <td>{team.drawn}</td>
-                          <td>{team.lost}</td>
-                          <td>{team.goals_for}</td>
-                          <td>{team.goals_against}</td>
-                          <td>{team.goal_difference > 0 ? '+' : ''}{team.goal_difference}</td>
-                          <td><strong>{team.points}</strong></td>
+                  {!isMobile && (
+                    <table className="standings-table">
+                      <thead>
+                        <tr>
+                          <th className="position">Pos</th>
+                          <th>Team</th>
+                          <th>P</th>
+                          <th>W</th>
+                          <th>D</th>
+                          <th>L</th>
+                          <th>GF</th>
+                          <th>GA</th>
+                          <th>GD</th>
+                          <th>Pts</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {standings[group].map((team, idx) => (
+                          <tr key={team.team}>
+                            <td className="position">{idx + 1}</td>
+                            <td>{team.team}</td>
+                            <td>{team.played}</td>
+                            <td>{team.won}</td>
+                            <td>{team.drawn}</td>
+                            <td>{team.lost}</td>
+                            <td>{team.goals_for}</td>
+                            <td>{team.goals_against}</td>
+                            <td>{team.goal_difference > 0 ? '+' : ''}{team.goal_difference}</td>
+                            <td><strong>{team.points}</strong></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                   {/* Mobile: Preview */}
-                  <div className="standings-preview">
-                    {standings[group].slice(0, 4).map((team, idx) => (
-                      <div key={team.team} className="standings-preview-row">
-                        <span className="preview-position">{idx + 1}</span>
-                        <span className="preview-team">{team.team}</span>
-                        <span className="preview-points"><strong>{team.points}</strong></span>
-                      </div>
-                    ))}
-                    <div className="standings-preview-more">Tap to view full standings →</div>
-                  </div>
+                  {isMobile && (
+                    <div className="standings-preview">
+                      {standings[group].slice(0, 4).map((team, idx) => (
+                        <div key={team.team} className="standings-preview-row">
+                          <span className="preview-position">{idx + 1}</span>
+                          <span className="preview-team">{team.team}</span>
+                          <span className="preview-points"><strong>{team.points}</strong></span>
+                        </div>
+                      ))}
+                      <div className="standings-preview-more">Tap to view full standings →</div>
+                    </div>
+                  )}
                 </>
               ) : (
                 <p style={{ color: '#888', textAlign: 'center', padding: '1rem' }}>
